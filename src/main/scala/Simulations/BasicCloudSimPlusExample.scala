@@ -20,6 +20,7 @@ object BasicCloudSimPlusExample:
     case Some(value) => value
     case None => throw new RuntimeException("Cannot obtain a reference to the config data.")
   }
+
   val logger = CreateLogger(classOf[BasicCloudSimPlusExample])
 
   def Start() =
