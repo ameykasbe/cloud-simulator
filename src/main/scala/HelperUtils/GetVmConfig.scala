@@ -27,5 +27,6 @@ class GetVmConfig (schedulerModel: String) {
   val ram = config.getInt("vm.ram")
   val bw = config.getInt("vm.bw")
   val size = config.getInt("vm.size")
+  val numOfPes = config.getInt("vm.numOfPes")
 }
 

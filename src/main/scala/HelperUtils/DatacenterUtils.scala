@@ -25,35 +25,31 @@ class DatacenterUtils (schedulerModel: String, vmScheduler: VmScheduler, cloudle
   val config = ConfigFactory.load(schedulerModel)
   val datacenterConfig = new GetDatacenterConfig(schedulerModel)
   val hostConfig = new GetHostConfig(schedulerModel)
-  val peConfig = new GetPeConfig(schedulerModel)
   val vmConfig = new GetVmConfig(schedulerModel)
   val cloudletConfig = new GetCloudletConfig(schedulerModel)
 
   def createDatacenter(cloudsim: CloudSim) = {
     val hostList = createHost(datacenterConfig.numberOfHosts)
-    new DatacenterSimple(cloudsim, hostList.asJava, new VmAllocationPolicySimple())
+    new DatacenterSimple(cloudsim, hostList.asJava, new VmAllocationPolicySimple()).getCharacteristics().setArchitecture(datacenterConfig.arch).setOs(datacenterConfig.os).setCostPerBw(datacenterConfig.costPerBw).setCostPerStorage(datacenterConfig.costPerStorage).setCostPerMem(datacenterConfig.costPerMem)
   }
 
   def createHost(numberOfHosts: Int) = {
-    val peList : List[Pe] = createPe(hostConfig.numberOfPes)
+    val peList : List[Pe] = 1.to(hostConfig.numberOfPes).map(x=>new PeSimple(hostConfig.mipsCapacity)).toList
     1.to(numberOfHosts).map(x=>new HostSimple(hostConfig.ram, hostConfig.bw, hostConfig.storage, peList.asJava, true).setVmScheduler(vmScheduler)).toList
   }
 
-  def createPe(numberOfPes: Int) = {
-    1.to(numberOfPes).map(x=>new PeSimple(peConfig.mipsCapacity)).toList
-  }
+
 
   def createVms() = {
-    val numberOfPes = hostConfig.numberOfPes
     val numOfVms = datacenterConfig.numOfVms
     1.to(numOfVms).map(x =>
-      new VmSimple(vmConfig.mipsCapacity, numberOfPes, cloudletScheduler).setRam(vmConfig.ram).setBw(vmConfig.bw).setSize(vmConfig.size)
+      new VmSimple(vmConfig.mipsCapacity, vmConfig.numOfPes, cloudletScheduler).setRam(vmConfig.ram).setBw(vmConfig.bw).setSize(vmConfig.size)
     ).toList
   }
 
   def createCloudlets() = {
     val numOfCloudlets = datacenterConfig.numOfCloudlets
-    1.to(numOfCloudlets).map(x=>new CloudletSimple(cloudletConfig.length, cloudletConfig.pesNumber, cloudletConfig.utilizationModel)).toList
+    1.to(numOfCloudlets).map(x=>new CloudletSimple(cloudletConfig.length, cloudletConfig.pesNumber, cloudletConfig.utilizationModel).setSizes(cloudletConfig.size)).toList
   }
 }
 

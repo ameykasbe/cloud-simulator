@@ -26,5 +26,6 @@ class GetCloudletConfig (schedulerModel: String) {
   val length = config.getInt("cloudlet.length")
   val pesNumber = config.getInt("cloudlet.pesNumber")
   val utilizationModel = new UtilizationModelDynamic(config.getDouble("cloudlet.utilizationModel"))
+  val size = config.getInt("cloudlet.size")
 }
 

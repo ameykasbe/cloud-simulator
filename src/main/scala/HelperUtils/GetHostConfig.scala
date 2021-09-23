@@ -26,5 +26,6 @@ class GetHostConfig (schedulerModel: String) {
   val bw = config.getInt("host.bw")
   val storage = config.getInt("host.storage")
   val numberOfPes = config.getInt("host.numberOfPe")
+  val mipsCapacity = config.getInt("host.mipsCapacity")
 }
 

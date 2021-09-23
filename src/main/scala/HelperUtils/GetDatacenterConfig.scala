@@ -25,6 +25,13 @@ class GetDatacenterConfig (schedulerModel: String) {
   val numberOfHosts = config.getInt("datacenter.numOfHosts")
   val numOfCloudlets = config.getInt("datacenter.numofCloudlets")
   val numOfVms = config.getInt("datacenter.numOfVms")
+  val arch = config.getString("datacenter.arch")
+  val os = config.getString("datacenter.os")
+  val vmm = config.getString("datacenter.vmm")
+  val costPerSec = config.getDouble("datacenter.costPerSec")
+  val costPerBw = config.getDouble("datacenter.costPerBw")
+  val costPerMem = config.getDouble("datacenter.costPerMem")
+  val costPerStorage = config.getDouble("datacenter.costPerStorage")
 
 }
 
