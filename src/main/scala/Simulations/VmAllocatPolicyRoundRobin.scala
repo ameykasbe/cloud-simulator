@@ -1,9 +1,9 @@
 package Simulations
 
-import HelperUtils.{CreateLogger, ObtainConfigReference, DatacenterUtils}
+import HelperUtils.{CreateLogger, DatacenterUtils, ObtainConfigReference}
 import Simulations.BasicCloudSimPlusExample.config
 import com.typesafe.config.ConfigFactory
-import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
+import org.cloudbus.cloudsim.allocationpolicies.{VmAllocationPolicy, VmAllocationPolicyRoundRobin, VmAllocationPolicySimple}
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple
 import org.cloudbus.cloudsim.cloudlets.CloudletSimple
 import org.cloudbus.cloudsim.core.CloudSim
@@ -21,7 +21,7 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
 
 import scala.collection.JavaConverters.*
 
-class VmAllocatPolicyRoundRobin(schedulerModel: String)  {
+class VmAllocatPolicyRoundRobin(schedulerModel: String, vmAllocation: VmAllocationPolicy)  {
     // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
 
     val config = ConfigFactory.load(schedulerModel)
@@ -29,8 +29,8 @@ class VmAllocatPolicyRoundRobin(schedulerModel: String)  {
   def start() = {
       // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
       val cloudsim = new CloudSim
-
-      val datacenterutil = new DatacenterUtils(schedulerModel: String)
+      println(s"VmAllocatPolicyRoundRobin - $schedulerModel")
+      val datacenterutil = new DatacenterUtils(schedulerModel: String, vmAllocation = vmAllocation: VmAllocationPolicy)
       val datacenter = datacenterutil.createDatacenter(cloudsim)
 
       val broker = new DatacenterBrokerSimple(cloudsim)

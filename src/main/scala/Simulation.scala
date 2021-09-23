@@ -1,9 +1,10 @@
 import HelperUtils.{CreateLogger, ObtainConfigReference}
-import Simulations.SchedulingSimulations
+import Simulations.{SchedulingSimulations, VmAllocatPolicyRoundRobin}
 import com.typesafe.config.ConfigFactory
 import org.slf4j.LoggerFactory
 import org.cloudbus.cloudsim.schedulers.cloudlet.{CloudletSchedulerSpaceShared, CloudletSchedulerTimeShared}
 import org.cloudbus.cloudsim.schedulers.vm.{VmSchedulerSpaceShared, VmSchedulerTimeShared}
+import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicyRoundRobin
 
 object Simulation:
   val logger = CreateLogger(classOf[Simulation])
@@ -17,6 +18,9 @@ object Simulation:
     val timeShared = new SchedulingSimulations("TimeShared", new VmSchedulerTimeShared(), new CloudletSchedulerTimeShared())
     timeShared.start()
 
+    logger.info("Starting simulation for VM Allocation Policy Round Robin...")
+    val roundRobin = new VmAllocatPolicyRoundRobin("RoundRobin", vmAllocation = new VmAllocationPolicyRoundRobin())
+    roundRobin.start()
 
     logger.info("Finished cloud simulation...")
 

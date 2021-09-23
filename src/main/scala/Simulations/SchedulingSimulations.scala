@@ -27,8 +27,6 @@ class SchedulingSimulations(schedulerModel: String, vmScheduler: VmScheduler, cl
     val config = ConfigFactory.load(schedulerModel)
 
   def start() = {
-
-
       // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
       val cloudsim = new CloudSim
 
