@@ -21,7 +21,6 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
 import scala.collection.JavaConverters.*
 
 class GetPeConfig (schedulerModel: String) {
-  // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
   val config = ConfigFactory.load(schedulerModel: String)
   val mipsCapacity = config.getInt("pe.mipsCapacity")
 }

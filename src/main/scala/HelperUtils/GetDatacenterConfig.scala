@@ -21,7 +21,6 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
 import scala.collection.JavaConverters.*
 
 class GetDatacenterConfig (schedulerModel: String) {
-  // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
   val config = ConfigFactory.load(schedulerModel: String)
   val numberOfHosts = config.getInt("datacenter.numOfHosts")
   val numOfCloudlets = config.getInt("datacenter.numofCloudlets")

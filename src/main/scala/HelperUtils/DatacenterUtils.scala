@@ -46,7 +46,7 @@ class DatacenterUtils (schedulerModel: String, vmScheduler: VmScheduler, cloudle
   def createVms() = {
     val numberOfPes = hostConfig.numberOfPes
     val numOfVms = datacenterConfig.numOfVms
-    1.to(numOfVms).map(x => 
+    1.to(numOfVms).map(x =>
       new VmSimple(vmConfig.mipsCapacity, numberOfPes, cloudletScheduler).setRam(vmConfig.ram).setBw(vmConfig.bw).setSize(vmConfig.size)
     ).toList
   }
