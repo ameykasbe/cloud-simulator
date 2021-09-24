@@ -20,6 +20,9 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
 
 import scala.collection.JavaConverters.*
 
+/**
+ * A utility class to parse the configurations of VM
+ */
 class GetVmConfig (schedulerModel: String) {
   // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
   val config = ConfigFactory.load(schedulerModel: String)

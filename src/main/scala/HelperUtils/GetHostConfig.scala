@@ -20,6 +20,9 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
 
 import scala.collection.JavaConverters.*
 
+/**
+ * A utility class to parse the configurations of host
+ */
 class GetHostConfig (schedulerModel: String) {
   val config = ConfigFactory.load(schedulerModel: String)
   val ram = config.getInt("host.ram")

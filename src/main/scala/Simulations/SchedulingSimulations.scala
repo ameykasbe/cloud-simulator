@@ -1,7 +1,6 @@
 package Simulations
 
-import HelperUtils.{CreateLogger, DatacenterUtils, GetCloudletConfig, GetDatacenterConfig, GetHostConfig, GetVmConfig, ObtainConfigReference}
-import Simulations.BasicCloudSimPlusExample.config
+import HelperUtils.{CreateLogger, DatacenterUtils, GetCloudletConfig, GetDatacenterConfig, GetHostConfig, GetVmConfig}
 import com.typesafe.config.ConfigFactory
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple
@@ -21,35 +20,53 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
 
 import scala.collection.JavaConverters.*
 
+/** A class to simulate Time shared and Space shared VM and Cloudlet scheduling policies.
+ *
+ *  @param schedulerModel a string that accepts the scheduling policy. E.g. TimeShared, SpaceShared.
+ *  @param vmScheduler the vm scheduling policy
+ *  @param cloudletScheduler the cloudlet scheduling policy
+ */
 class SchedulingSimulations(schedulerModel: String, vmScheduler: VmScheduler, cloudletScheduler: CloudletScheduler)  {
-    // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
 
-    val config = ConfigFactory.load(schedulerModel)
-    val datacenterConfig = new GetDatacenterConfig(schedulerModel)
-    val hostConfig = new GetHostConfig(schedulerModel)
-    val vmConfig = new GetVmConfig(schedulerModel)
-    val cloudletConfig = new GetCloudletConfig(schedulerModel)
+    // Creating a logger instance to log events
+    val logger = CreateLogger(classOf[SchedulingSimulations])
 
   def start() = {
-      // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
+      // Create a cloudsim instance for simulation. Also creates the Cloud Information Service (CIS) entity internally.
       val cloudsim = new CloudSim
 
+      // Create a utility instance to create cloud entities.
       val datacenterutil = new DatacenterUtils(schedulerModel, vmScheduler: VmScheduler, cloudletScheduler: CloudletScheduler)
+
+      // Create a datacenter instance
       val datacenter = datacenterutil.createDatacenter(cloudsim)
 
+      // Create a broker instance that submits VM requests and cloudlets from customer to cloud service provider
       val broker = new DatacenterBrokerSimple(cloudsim)
 
+
+      // Create a list of VMs
+      logger.info("Creating VMs")
       val vmList = datacenterutil.createVms()
 
+      // Create a list of cloudlets
+      logger.info("Creating cloudlets")
       val cloudletList = datacenterutil.createCloudlets()
 
+
+      // Submit VMs and cloudlets to broker
+      logger.info("Submitting VMs and cloudlets to broker")
       broker.submitVmList(vmList.asJava)
       broker.submitCloudletList(cloudletList.asJava)
 
+      // Start the simulation
       cloudsim.start()
 
+      // Build the simulation table
       val finishedCloudlet = broker.getCloudletFinishedList()
       CloudletsTableBuilder(finishedCloudlet).build()
+
+      logger.info(s"Finished execution of $schedulerModel VM and cloudlet scheduling policy. \n\n\n")
   }
 
 }

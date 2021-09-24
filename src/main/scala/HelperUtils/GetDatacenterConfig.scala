@@ -20,6 +20,9 @@ import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
 
 import scala.collection.JavaConverters.*
 
+/**
+ * A utility class to parse the configurations of datacenter
+ */
 class GetDatacenterConfig (schedulerModel: String) {
   val config = ConfigFactory.load(schedulerModel: String)
   val numberOfHosts = config.getInt("datacenter.numOfHosts")
