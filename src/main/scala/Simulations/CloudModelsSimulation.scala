@@ -5,7 +5,7 @@ import Simulations.BasicCloudSimPlusExample.config
 import com.typesafe.config.ConfigFactory
 import org.cloudbus.cloudsim.allocationpolicies.{VmAllocationPolicy, VmAllocationPolicyRoundRobin, VmAllocationPolicySimple}
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple
-import org.cloudbus.cloudsim.cloudlets.CloudletSimple
+import org.cloudbus.cloudsim.cloudlets.{CloudletSimple, Cloudlet}
 import org.cloudbus.cloudsim.core.CloudSim
 import org.cloudbus.cloudsim.datacenters.DatacenterSimple
 import org.cloudbus.cloudsim.hosts.HostSimple
@@ -19,9 +19,10 @@ import org.cloudbus.cloudsim.schedulers.vm.{VmScheduler, VmSchedulerAbstract, Vm
 import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletScheduler
 import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
 import org.cloudbus.cloudsim.network.topologies.BriteNetworkTopology
-
+import java.util
 
 import scala.collection.JavaConverters.*
+
 
 class CloudModelsSimulation()  {
     // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
@@ -65,8 +66,19 @@ class CloudModelsSimulation()  {
 
       cloudsim.start()
 
-      val finishedCloudlet = broker.getCloudletFinishedList()
+      val finishedCloudlet : util.List[Cloudlet] = broker.getCloudletFinishedList()
       CloudletsTableBuilder(finishedCloudlet).build()
+
+      val scalaCloudletList : List[Cloudlet] =  finishedCloudlet.asScala.toList.sorted
+      scalaCloudletList.map(cloudlet => {
+          val cloudletId = cloudlet.getId
+          val cost = cloudlet.getTotalCost()
+          val dc = cloudlet.getLastTriedDatacenter()
+          println(s"Cost of cloudlet: $cloudletId on datacenter $dc is $cost")
+      }
+      )
+
+
 
   }
 
