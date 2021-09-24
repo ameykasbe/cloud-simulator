@@ -6,7 +6,7 @@ import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple
 import org.cloudbus.cloudsim.cloudlets.CloudletSimple
 import org.cloudbus.cloudsim.core.CloudSim
-import org.cloudbus.cloudsim.datacenters.DatacenterSimple
+import org.cloudbus.cloudsim.datacenters.{DatacenterSimple, Datacenter}
 import org.cloudbus.cloudsim.hosts.HostSimple
 import org.cloudbus.cloudsim.resources.{Pe, PeSimple}
 import org.cloudbus.cloudsim.utilizationmodels.UtilizationModelDynamic
@@ -23,18 +23,20 @@ import org.cloudbus.cloudsim.utilizationmodels.UtilizationModelFull
 
 import scala.collection.JavaConverters.*
 
-class DatacenterUtils (schedulerModel: String, vmScheduler: VmScheduler = new VmSchedulerSpaceShared(), cloudletScheduler: CloudletScheduler = new CloudletSchedulerTimeShared(), vmAllocation: VmAllocationPolicy = new VmAllocationPolicySimple()) {
-//  If scheduling policy is not provided then the default ones are assumed
-  val config = ConfigFactory.load(schedulerModel)
+class DatacenterUtils (schedulerModel:String, vmScheduler: VmScheduler = new VmSchedulerSpaceShared(), cloudletScheduler: CloudletScheduler = new CloudletSchedulerTimeShared(), vmAllocation: VmAllocationPolicy = new VmAllocationPolicySimple()) {
 
+//  If scheduling policy is not provided then the default ones are assumed
   val datacenterConfig = new GetDatacenterConfig(schedulerModel)
   val hostConfig = new GetHostConfig(schedulerModel)
   val vmConfig = new GetVmConfig(schedulerModel)
   val cloudletConfig = new GetCloudletConfig(schedulerModel)
 
-  def createDatacenter(cloudsim: CloudSim) = {
+  def createDatacenter(cloudsim: CloudSim) : Datacenter = {
     val hostList = createHost(datacenterConfig.numberOfHosts)
-    new DatacenterSimple(cloudsim, hostList.asJava, vmAllocation).getCharacteristics().setArchitecture(datacenterConfig.arch).setOs(datacenterConfig.os).setCostPerBw(datacenterConfig.costPerBw).setCostPerStorage(datacenterConfig.costPerStorage).setCostPerMem(datacenterConfig.costPerMem)
+    val dc = new DatacenterSimple(cloudsim, hostList.asJava, vmAllocation)
+    dc.getCharacteristics().setArchitecture(datacenterConfig.arch).setOs(datacenterConfig.os).setCostPerBw(datacenterConfig.costPerBw).setCostPerStorage(datacenterConfig.costPerStorage).setCostPerMem(datacenterConfig.costPerMem)
+    return dc
+
   }
 
   def createHost(numberOfHosts: Int) = {

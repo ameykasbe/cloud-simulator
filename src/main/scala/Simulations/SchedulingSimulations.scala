@@ -1,6 +1,6 @@
 package Simulations
 
-import HelperUtils.{CreateLogger, ObtainConfigReference, DatacenterUtils}
+import HelperUtils.{CreateLogger, DatacenterUtils, GetCloudletConfig, GetDatacenterConfig, GetHostConfig, GetVmConfig, ObtainConfigReference}
 import Simulations.BasicCloudSimPlusExample.config
 import com.typesafe.config.ConfigFactory
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
@@ -25,12 +25,16 @@ class SchedulingSimulations(schedulerModel: String, vmScheduler: VmScheduler, cl
     // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
 
     val config = ConfigFactory.load(schedulerModel)
+    val datacenterConfig = new GetDatacenterConfig(schedulerModel)
+    val hostConfig = new GetHostConfig(schedulerModel)
+    val vmConfig = new GetVmConfig(schedulerModel)
+    val cloudletConfig = new GetCloudletConfig(schedulerModel)
 
   def start() = {
       // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
       val cloudsim = new CloudSim
 
-      val datacenterutil = new DatacenterUtils(schedulerModel: String, vmScheduler: VmScheduler, cloudletScheduler: CloudletScheduler)
+      val datacenterutil = new DatacenterUtils(schedulerModel, vmScheduler: VmScheduler, cloudletScheduler: CloudletScheduler)
       val datacenter = datacenterutil.createDatacenter(cloudsim)
 
       val broker = new DatacenterBrokerSimple(cloudsim)

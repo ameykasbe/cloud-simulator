@@ -1,5 +1,5 @@
 package Simulations
-import HelperUtils.DatacenterUtils
+import HelperUtils.{DatacenterUtils, GetCloudletConfig, GetDatacenterConfig, GetHostConfig, GetVmConfig}
 import com.typesafe.config.ConfigFactory
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple
 import org.cloudbus.cloudsim.core.CloudSim
@@ -34,7 +34,9 @@ class CloudSimulatorTestSuite extends AnyFunSpec {
       assert(cloudsim != null)
     }
   }
-  val datacenterutil = new DatacenterUtils(schedulerModel: String, vmScheduler: VmScheduler, cloudletScheduler: CloudletScheduler)
+
+
+  val datacenterutil = new DatacenterUtils(schedulerModel, vmScheduler: VmScheduler, cloudletScheduler: CloudletScheduler)
   val datacenter = datacenterutil.createDatacenter(cloudsim)
 
 

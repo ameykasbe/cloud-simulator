@@ -18,34 +18,56 @@ import org.cloudbus.cloudsim.schedulers.vm
 import org.cloudbus.cloudsim.schedulers.vm.{VmScheduler, VmSchedulerAbstract, VmSchedulerSpaceShared, VmSchedulerTimeShared}
 import org.cloudbus.cloudsim.schedulers.cloudlet.CloudletScheduler
 import org.cloudbus.cloudsim.provisioners.ResourceProvisionerSimple
+import org.cloudbus.cloudsim.network.topologies.BriteNetworkTopology
+
 
 import scala.collection.JavaConverters.*
 
-class VmAllocatPolicyRoundRobin(schedulerModel: String, vmAllocation: VmAllocationPolicy)  {
+class CloudModelsSimulation()  {
     // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
-
 
   def start() = {
       // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
-      val config = ConfigFactory.load(schedulerModel)
-
       val cloudsim = new CloudSim
-      val datacenterutil = new DatacenterUtils(schedulerModel, vmAllocation = vmAllocation: VmAllocationPolicy)
-      val datacenter = datacenterutil.createDatacenter(cloudsim)
+
+      val iaasDatacenterutil = new DatacenterUtils("Iaas")
+      val paasDatacenterutil = new DatacenterUtils("Paas")
+      val saasDatacenterutil = new DatacenterUtils("Saas")
+
+      val iaasDatacenter = iaasDatacenterutil.createDatacenter(cloudsim)
+      val paasDatacenter = paasDatacenterutil.createDatacenter(cloudsim)
+      val saasDatacenter = saasDatacenterutil.createDatacenter(cloudsim)
 
       val broker = new DatacenterBrokerSimple(cloudsim)
 
-      val vmList = datacenterutil.createVms()
+      val networkTopology = new BriteNetworkTopology("topology.brite")
+      cloudsim.setNetworkTopology(networkTopology)
 
-      val cloudletList = datacenterutil.createCloudlets()
+      networkTopology.mapNode(iaasDatacenter, 0)
+      networkTopology.mapNode(paasDatacenter, 1)
+      networkTopology.mapNode(saasDatacenter, 2)
+      networkTopology.mapNode(broker, 3)
 
-      broker.submitVmList(vmList.asJava)
-      broker.submitCloudletList(cloudletList.asJava)
+      val iaasVmList = iaasDatacenterutil.createVms()
+      val paasVmList = paasDatacenterutil.createVms()
+      val saasVmList = saasDatacenterutil.createVms()
+
+      val allVmList = iaasVmList ::: paasVmList ::: saasVmList
+
+      val iaasCloudletList = iaasDatacenterutil.createCloudlets()
+      val paasCloudletList = paasDatacenterutil.createCloudlets()
+      val saasCloudletList = saasDatacenterutil.createCloudlets()
+
+      val allCloudletList = iaasCloudletList ::: paasCloudletList ::: saasCloudletList
+
+      broker.submitVmList(allVmList.asJava)
+      broker.submitCloudletList(allCloudletList.asJava)
 
       cloudsim.start()
 
       val finishedCloudlet = broker.getCloudletFinishedList()
       CloudletsTableBuilder(finishedCloudlet).build()
+
   }
 
 }
