@@ -122,10 +122,12 @@ Complete configurations can be found in `Saas.conf`, `Paas.conf` and `Iaas.conf`
 #### Platform as a Service
 * In Platform as a Service model, the consumer is given more control over the infrastructure. The consumer has complete control over the application and has development tools and environment to build applications.
 * So, the consumer can control the configuration of the cloudlets and the number of VMs to be requested.
+* Faas, being a special case of Paas is not implemented.
 
 #### Infrastructure as a Service
 * In Infrastructure as a Service model, the consumer can request configuration of the virtual machines as well. The consumer has control over almost all parts of the infrastructure apart from the most priviledged lower levels. 
 * So, the consumer can control the configuration of the cloudlets, virtual machines and the number of hosts.
+
 #### Simulation
 ![](etc/CloudModels1.png)
 
