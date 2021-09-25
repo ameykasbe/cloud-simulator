@@ -31,7 +31,7 @@ class SchedulingSimulations(schedulerModel: String, vmScheduler: VmScheduler, cl
     // Creating a logger instance to log events
     val logger = CreateLogger(classOf[SchedulingSimulations])
 
-  def start() = {
+    def start() = {
       // Create a cloudsim instance for simulation. Also creates the Cloud Information Service (CIS) entity internally.
       val cloudsim = new CloudSim
 

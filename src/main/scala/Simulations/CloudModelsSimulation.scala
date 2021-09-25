@@ -28,7 +28,7 @@ class CloudModelsSimulation()  {
     // Creating a logger instance to log events
     val logger = CreateLogger(classOf[CloudModelsSimulation])
 
-  def start() = {
+    def start() = {
       logger.info(s"Starting execution of cloud models simulation.")
 
       // Create a cloudsim instance for simulation. Also creates the Cloud Information Service (CIS) entity internally.
