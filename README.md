@@ -69,7 +69,7 @@ The main method inside the object `Simulation` executes all simulations sequenti
 * The class `CloudModelsSimulation` is to simulate three datacenters, each for three different cloud models - Saas, Paas and Iaas arranged in BRITE topology.
 
 ## Simulations
-1. Space Shared VM and Cloudlet Scheduling Policies Simulation
+### 1. Space Shared VM and Cloudlet Scheduling Policies Simulation
 * A datacenter with 1 host, 1 VM are created and 4 cloudlets are executed in this system.
 * The VM Allocation policy is VmAllocationPolicySimple.
 * The VM Scheduling policy is VmSchedulerSpaceShared and the cloudlet scheduling policy is CloudletSchedulerSpaceShared.
@@ -78,7 +78,7 @@ The main method inside the object `Simulation` executes all simulations sequenti
 * The first cloudlet completes its execution in 40 seconds. Till then the next cloudlet waits for the resources to be available. 
 * All the PE resources are utilized one by one by all the cloudlets.
 
-2. Time Shared VM and Cloudlet Scheduling Policies Simulation
+### 2. Time Shared VM and Cloudlet Scheduling Policies Simulation
 * A datacenter with 1 host, 1 VM are created and 4 cloudlets are executed in this system.
 * The VM Allocation policy is VmAllocationPolicySimple.
 * The VM Scheduling policy is VmSchedulerTimeShared and the cloudlet scheduling policy is CloudletSchedulerTimeShared.
@@ -89,7 +89,7 @@ The main method inside the object `Simulation` executes all simulations sequenti
 #### Inference
 * The total time to execute four identical cloudlets are similar i.e. 160 seconds. In Time Shared policy, although, all cloudlets start their execution at nearly same time, it does not mean the execution is finished in the time of one cloudlet.
 
-3. Round Robin VM Allocation Policy simulation
+### 3. Round Robin VM Allocation Policy simulation
 * A datacenter with 4 hosts, 8 VMs are created and 8 cloudlets are executed in this system.
 * The VM Allocation policy is VmAllocationPolicyRoundRobin.
 * The VM Scheduling policy is VmSchedulerSpaceShared and the cloudlet scheduling policy is CloudletSchedulerTimeShared.
@@ -102,7 +102,7 @@ The main method inside the object `Simulation` executes all simulations sequenti
 
 * On looking at the log, it can be inferred that Virtual Machines are allocated to Hosts cyclically. VM0 to VM7 are allocated to Host0 to Host3 cyclically.
 
-4. Cloud models simulation (Saas, Paas and Iaas)
+### 4. Cloud models simulation (Saas, Paas and Iaas)
 * Three datacenters are created each for the three cloud models - Saas, Paas and Iaas.
 * The datacenters and the broker are connected with each other in BRITE topology.
 * The configurations for the datacenters are -
