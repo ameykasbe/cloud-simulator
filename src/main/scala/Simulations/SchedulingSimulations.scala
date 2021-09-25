@@ -4,7 +4,7 @@ import HelperUtils.{CreateLogger, DatacenterUtils, GetCloudletConfig, GetDatacen
 import com.typesafe.config.ConfigFactory
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple
-import org.cloudbus.cloudsim.cloudlets.CloudletSimple
+import org.cloudbus.cloudsim.cloudlets.{Cloudlet, CloudletSimple}
 import org.cloudbus.cloudsim.core.CloudSim
 import org.cloudbus.cloudsim.datacenters.DatacenterSimple
 import org.cloudbus.cloudsim.hosts.HostSimple
@@ -65,6 +65,16 @@ class SchedulingSimulations(schedulerModel: String, vmScheduler: VmScheduler, cl
       // Build the simulation table
       val finishedCloudlet = broker.getCloudletFinishedList()
       CloudletsTableBuilder(finishedCloudlet).build()
+
+      val scalaCloudletList : List[Cloudlet] =  finishedCloudlet.asScala.toList
+      scalaCloudletList.map(cloudlet => {
+        val cloudletId = cloudlet.getId
+        val cost = cloudlet.getTotalCost()
+        val dc = cloudlet.getLastTriedDatacenter()
+        logger.info(s"Cost of cloudlet: $cloudletId on datacenter $dc is $cost")
+      }
+      )
+      logger.info(s"Finished execution of cloud models simulation.")
 
       logger.info(s"Finished execution of $schedulerModel VM and cloudlet scheduling policy. \n\n\n")
   }

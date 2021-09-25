@@ -88,6 +88,13 @@ The main method inside the object `Simulation` executes all simulations sequenti
 
 #### Inference
 * The total time to execute four identical cloudlets are similar i.e. 160 seconds. In Time Shared policy, although, all cloudlets start their execution at nearly same time, it does not mean the execution is finished in the time of one cloudlet.
+* Cost of both the executions are similar as shown in the simulation.
+
+#### Space Shared Policy Cost
+![](etc/SpaceSharedCost.png)
+
+#### Time Shared Policy Cost
+* ![](etc/TimeSharedCost.png)
 
 ### 3. Round Robin VM Allocation Policy simulation
 * A datacenter with 4 hosts, 8 VMs are created and 8 cloudlets are executed in this system.
@@ -133,6 +140,10 @@ Complete configurations can be found in `Saas.conf`, `Paas.conf` and `Iaas.conf`
 
 #### Cost of execution
 ![](etc/CloudModels2.png)
+
+* Taking cost under consideration, Iaas is the most expensive cloud model (Datacenter 1) and Saas to be the least expensive option. 
+* This is due to the fact that it offers more configuration ability to the consumer. It still has Paas and Saas layers on top of it to be functional, making the cost of each of its resource to be higher.
+* Similarly, Paas is the next expensive option which makes Saas the least expensive.
 
 ## Execution procedure
 ### Executing the runSimulation method
