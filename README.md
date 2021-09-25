@@ -132,12 +132,6 @@ Complete configurations can be found in `Saas.conf`, `Paas.conf` and `Iaas.conf`
 #### Cost of execution
 ![](etc/CloudModels2.png)
 
-## References
-1. Dr. Grechanik, Mark, (2020) Cloud Computing: Theory and Practice.
-2. [Rock the JVM](https://www.youtube.com/c/RocktheJVM)
-3. [SuperWits Academy](https://www.youtube.com/channel/UCc0MW9_-0n7wHsX73DnfkKQ)
-4. [Cloudsim Tutorials](https://www.cloudsimtutorials.online/)
-
 ## Execution procedure
 ### Executing the runSimulation method
 1. Clone this repository
@@ -167,3 +161,9 @@ Complete configurations can be found in `Saas.conf`, `Paas.conf` and `Iaas.conf`
     * SBT
 3. In terminal, go to path `src/main/scala/ `directory
 4. Execute - `$ sbt clean compile test`
+
+## References
+1. Dr. Grechanik, Mark, (2020) Cloud Computing: Theory and Practice.
+2. [Rock the JVM](https://www.youtube.com/c/RocktheJVM)
+3. [SuperWits Academy](https://www.youtube.com/channel/UCc0MW9_-0n7wHsX73DnfkKQ)
+4. [Cloudsim Tutorials](https://www.cloudsimtutorials.online/)
