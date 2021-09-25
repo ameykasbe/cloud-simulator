@@ -82,7 +82,5 @@ class CloudSimulatorTestSuite extends AnyFunSpec {
   broker.submitCloudletList(cloudletList.asJava)
 
   cloudsim.start()
-
-  val finishedCloudlet = broker.getCloudletFinishedList()
-  CloudletsTableBuilder(finishedCloudlet).build()
+  
 }
