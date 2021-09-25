@@ -64,7 +64,7 @@ The main method inside the object `Simulation` executes all simulations sequenti
 
 ### VmAllocatPolicyRoundRobin.scala
 * The class `VmAllocatPolicyRoundRobin` shows the simulation of the VM Allocation Policy Round Robin in which VMs are assigned to the hosts in a cyclic manner.
-* 
+
 ### CloudModelsSimulation.scala
 * The class `CloudModelsSimulation` is to simulate three datacenters, each for three different cloud models - Saas, Paas and Iaas arranged in BRITE topology.
 
