@@ -82,5 +82,5 @@ class CloudSimulatorTestSuite extends AnyFunSpec {
   broker.submitCloudletList(cloudletList.asJava)
 
   cloudsim.start()
-  
+
 }

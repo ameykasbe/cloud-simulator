@@ -142,7 +142,7 @@ Complete configurations can be found in `Saas.conf`, `Paas.conf` and `Iaas.conf`
 ### Executing the runSimulation method
 1. Clone this repository
 2. Import the project in IntelliJ
-3. Execute the runSimulation main method from the Simulation class.
+3. Execute the `runSimulation` main method from the Simulation class.
 
 ### By SBT run command
 1. Clone this repository
@@ -150,6 +150,20 @@ Complete configurations can be found in `Saas.conf`, `Paas.conf` and `Iaas.conf`
    * Java development kit
    * Scala runtime
    * SBT
-3. In terminal, go to path src/main/scala/ directory 
-4. Execute - $ sbt clean compile run
+3. In terminal, go to path `src/main/scala/` directory 
+4. Execute - `$ sbt clean compile run`
 
+## Unit testing procedure
+### Using the CloudSimulatorTestSuite class
+1. Clone this repository
+2. Import the project in IntelliJ
+3. Run the `CloudSimulatorTestSuite` class from `CloudSimulatorTestSuite.scala`.
+
+### By SBT test command
+1. Clone this repository
+2. Ensure necessary dependencies are installed
+    * Java development kit
+    * Scala runtime
+    * SBT
+3. In terminal, go to path `src/main/scala/ `directory
+4. Execute - `$ sbt clean compile test`
