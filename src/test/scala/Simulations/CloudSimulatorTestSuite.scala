@@ -82,5 +82,9 @@ class CloudSimulatorTestSuite extends AnyFunSpec {
   broker.submitCloudletList(cloudletList.asJava)
 
   cloudsim.start()
-
+  describe("Simulation") {
+    it("should not be running") {
+      assert(cloudsim.isRunning() == false)
+    }
+  }
 }
