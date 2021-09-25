@@ -1,6 +1,5 @@
 package HelperUtils
 
-import Simulations.BasicCloudSimPlusExample.config
 import com.typesafe.config.{Config, ConfigFactory}
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple

@@ -1,6 +1,5 @@
 package HelperUtils
 
-import Simulations.BasicCloudSimPlusExample.config
 import com.typesafe.config.{Config, ConfigFactory}
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple
@@ -24,7 +23,6 @@ import scala.collection.JavaConverters.*
  * A utility class to parse the configurations of VM
  */
 class GetVmConfig (schedulerModel: String) {
-  // Create a cloudsim object for simulation. Also creates the Cloud Information Service (CIS) entity.
   val config = ConfigFactory.load(schedulerModel: String)
   val mipsCapacity = config.getInt("vm.mipsCapacity")
   val ram = config.getInt("vm.ram")

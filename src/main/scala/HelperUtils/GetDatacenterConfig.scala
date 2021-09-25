@@ -1,6 +1,5 @@
 package HelperUtils
 
-import Simulations.BasicCloudSimPlusExample.config
 import com.typesafe.config.{Config, ConfigFactory}
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple
@@ -35,6 +34,5 @@ class GetDatacenterConfig (schedulerModel: String) {
   val costPerBw = config.getDouble("datacenter.costPerBw")
   val costPerMem = config.getDouble("datacenter.costPerMem")
   val costPerStorage = config.getDouble("datacenter.costPerStorage")
-
 }
 

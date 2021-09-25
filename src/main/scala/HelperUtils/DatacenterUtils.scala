@@ -1,6 +1,5 @@
 package HelperUtils
 
-import Simulations.BasicCloudSimPlusExample.config
 import Simulations.SchedulingSimulations
 import com.typesafe.config.{Config, ConfigFactory}
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicySimple
@@ -96,4 +95,5 @@ class DatacenterUtils (schedulerModel:String, vmScheduler: VmScheduler = new VmS
     1.to(numOfCloudlets).map(x=>new CloudletSimple(cloudletConfig.length, cloudletConfig.pesNumber, utilizationModel).setSizes(cloudletConfig.size)).toList
   }
 }
+
 
